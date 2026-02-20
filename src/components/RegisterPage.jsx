@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { User, Mail, Lock, BookMarked, ArrowRight, LogIn } from 'lucide-react';
+import { User, Mail, Lock, BookMarked, ArrowRight, LogIn, Eye, EyeOff } from 'lucide-react';
 
 export default function RegisterPage({ onRegister, onSwitchToLogin }) {
     const [formData, setFormData] = useState({
@@ -8,6 +8,10 @@ export default function RegisterPage({ onRegister, onSwitchToLogin }) {
         password: '',
         confirmPassword: ''
     });
+
+    // --- NEW STATE FOR VISIBILITY ---
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -21,18 +25,16 @@ export default function RegisterPage({ onRegister, onSwitchToLogin }) {
     return (
         <div className="min-h-screen w-full flex items-center justify-center p-4 relative overflow-hidden bg-slate-950">
             
-            {/* --- EXACT SAME ANIMATED MESH GRADIENT --- */}
+            {/* Animated Mesh Gradient */}
             <div className="absolute inset-0 z-0 overflow-hidden">
                 <div className="absolute top-[-20%] left-[-10%] w-[1000px] h-[1000px] bg-indigo-600/20 rounded-full blur-[120px] animate-aurora" />
                 <div className="absolute bottom-[-20%] right-[-10%] w-[800px] h-[800px] bg-fuchsia-600/10 rounded-full blur-[120px] animate-aurora aurora-delay-1" />
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-950/50 to-slate-950" />
             </div>
 
-            {/* Content Container */}
             <div className="w-full max-w-md relative z-10 animate-in fade-in zoom-in duration-700">
                 <div className="bg-white dark:bg-slate-900/80 backdrop-blur-2xl rounded-[2.5rem] border border-slate-200 dark:border-slate-800 p-8 md:p-10 shadow-2xl">
                     
-                    {/* Header */}
                     <div className="text-center mb-8">
                         <div className="inline-flex p-4 bg-gradient-to-br from-indigo-600 to-fuchsia-600 rounded-2xl text-white shadow-lg mb-4 transform rotate-3">
                             <BookMarked size={32} />
@@ -68,28 +70,42 @@ export default function RegisterPage({ onRegister, onSwitchToLogin }) {
                             />
                         </div>
 
-                        {/* Password Input */}
+                        {/* Password Input with Eye Button */}
                         <div className="relative group">
                             <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-500 transition-colors" size={18} />
                             <input
                                 required
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 placeholder="Create Password"
-                                className="w-full pl-12 pr-4 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500/20 text-slate-900 dark:text-white transition-all text-sm font-bold"
+                                className="w-full pl-12 pr-12 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500/20 text-slate-900 dark:text-white transition-all text-sm font-bold"
                                 onChange={(e) => setFormData({...formData, password: e.target.value})}
                             />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-indigo-500 transition-colors"
+                            >
+                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                            </button>
                         </div>
 
-                        {/* Confirm Password */}
+                        {/* Confirm Password with Eye Button */}
                         <div className="relative group">
                             <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-500 transition-colors" size={18} />
                             <input
                                 required
-                                type="password"
+                                type={showConfirmPassword ? "text" : "password"}
                                 placeholder="Confirm Password"
-                                className="w-full pl-12 pr-4 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500/20 text-slate-900 dark:text-white transition-all text-sm font-bold"
+                                className="w-full pl-12 pr-12 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500/20 text-slate-900 dark:text-white transition-all text-sm font-bold"
                                 onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
                             />
+                            <button
+                                type="button"
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-indigo-500 transition-colors"
+                            >
+                                {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                            </button>
                         </div>
 
                         <button
@@ -100,7 +116,6 @@ export default function RegisterPage({ onRegister, onSwitchToLogin }) {
                         </button>
                     </form>
 
-                    {/* Back to Login Redirect */}
                     <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 text-center">
                         <button 
                             onClick={onSwitchToLogin}
