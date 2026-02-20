@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8080/books";
+const BASE_URL = "https://bibliosync-api.onrender.com/books";
 
 export const bookService = {
     getAll: async () => {
