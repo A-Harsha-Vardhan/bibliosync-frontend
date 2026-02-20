@@ -1,5 +1,5 @@
 // src/services/authService.js
-const API_URL = "http://localhost:8080/api/auth";
+const API_URL = "https://bibliosync-backend.onrender.com/api/auth";
 
 export const authService = {
     // REGISTRATION: Sends user data to the backend
