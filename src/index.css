@@ -1,0 +1,164 @@
+@import "tailwindcss";
+
+/* 1. Tell Tailwind to look for the .dark class on the html element */
+@variant dark (&:where(.dark, .dark *));
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* 2. Base Styles with Mesh Support */
+@layer base {
+  :root {
+    --bg-mesh: radial-gradient(at 0% 0%, hsla(225, 100%, 98%, 1) 0, transparent 50%),
+               radial-gradient(at 100% 0%, hsla(243, 100%, 95%, 1) 0, transparent 50%);
+    @apply bg-slate-50 text-slate-900;
+  }
+
+  /* When the .dark class is present on <html> */
+  .dark {
+    --bg-mesh: radial-gradient(at 0% 0%, hsla(230, 40%, 10%, 1) 0, transparent 50%),
+               radial-gradient(at 100% 0%, hsla(250, 40%, 15%, 1) 0, transparent 50%);
+    @apply bg-slate-950 text-slate-50;
+  }
+
+  body {
+    background: var(--bg-mesh);
+    background-attachment: fixed;
+    /* Smooth transition for theme switching */
+    transition: background 0.5s ease, color 0.5s ease;
+    min-height: 100vh;
+  }
+}
+/* Custom Scrollbar for Dark Mode */
+.dark ::-webkit-scrollbar {
+  width: 8px;
+}
+.dark ::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 10px;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+/* Custom Scrollbar for History List */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #e2e8f0; /* Light gray */
+  border-radius: 10px;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #334155; /* Dark slate */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #6366f1; /* Indigo on hover */
+}
+.bg-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(99, 102, 241, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(99, 102, 241, 0.05) 1px, transparent 1px);
+}
+
+.dark .bg-grid {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+}
+@keyframes aurora-float {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(40px, -60px) scale(1.1); }
+  66% { transform: translate(-30px, 30px) scale(0.9); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+.animate-aurora {
+  animation: aurora-float 18s ease-in-out infinite;
+}
+
+.aurora-delay-1 { animation-delay: -4s; }
+.aurora-delay-2 { animation-delay: -8s; }
+
+/* The Glass Class */
+.glass {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+@keyframes aurora {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(10%, 10%) scale(1.1); }
+  66% { transform: translate(-5%, 5%) scale(0.9); }
+}
+
+.animate-aurora {
+  animation: aurora 20s ease-in-out infinite;
+}
+
+/* Custom Professional Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #e2e8f0; /* slate-200 */
+  border-radius: 10px;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #1e293b; /* slate-800 */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #cbd5e1; /* slate-300 */
+}
+.aurora-delay-1 {
+  animation-delay: -5s;
+}
+
+.dark .glass {
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+/* 3. Glassmorphism Utility */
+@layer components {
+  .glass {
+    @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-xl 
+           transition-all duration-500
+           dark:bg-slate-900/70 dark:border-slate-800/50 dark:shadow-none;
+  }
+}
